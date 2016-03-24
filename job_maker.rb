@@ -1,7 +1,11 @@
 require 'sinatra'
+require 'sinatra/flash'
 require 'dotenv'
 require 'pathname'
 require './lib/job_folder_helper'
+require './lib/name_validator'
+
+enable :sessions
 
 Dotenv.load
 
@@ -12,4 +16,9 @@ end
 
 get "#{ENV['SUB_DIR']}/new" do
   erb :new
+end
+
+post "#{ENV['SUB_DIR']}/job-folders" do
+  flash[:notice] = NameValidator.validate request["folder_name"]
+  redirect "#{ENV['SUB_DIR']}/"
 end
