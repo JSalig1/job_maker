@@ -5,9 +5,10 @@ require 'pathname'
 require './lib/job_folder_helper'
 require './lib/name_validator'
 
-enable :sessions
-
 Dotenv.load
+
+enable :sessions
+set :session_secret, ENV['SECRET']
 
 get "#{ENV['SUB_DIR']}/" do
   @job_folders = JobFolderHelper.fetch_job_folders
