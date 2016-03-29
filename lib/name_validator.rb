@@ -1,9 +1,20 @@
 class NameValidator
   def self.validate(folder_name)
     if folder_name =~ /(?!.*__.*)[a-zA-Z0-9]+_[a-zA-Z0-9_]+[a-zA-Z0-9]/
-      "#{folder_name} accepted."
+      check_for_existing(folder_name)
     else
-      "fail face!"
+      "folder name was not valid"
+    end
+  end
+
+  private
+
+  def self.check_for_existing(folder_name)
+    job_folders = JobFolderHelper.fetch_job_folders
+    if job_folders.include?(folder_name)
+      "a job folder by that name already exists"
+    else
+      "Job folder created"
     end
   end
 end
