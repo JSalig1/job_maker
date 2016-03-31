@@ -2,8 +2,10 @@ require 'sinatra'
 require 'sinatra/flash'
 require 'dotenv'
 require 'pathname'
+require 'net/ssh'
 require './lib/job_folder_helper'
 require './lib/name_validator'
+require './lib/secure_shell'
 
 Dotenv.load
 

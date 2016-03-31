@@ -14,6 +14,8 @@ class NameValidator
     if job_folders.include?(folder_name)
       "a job folder by that name already exists"
     else
+      server_shell = SecureShell.new
+      server_shell.create_job_folder(folder_name)
       "Job folder created"
     end
   end
