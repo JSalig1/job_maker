@@ -11,6 +11,7 @@ Dotenv.load
 
 enable :sessions
 set :session_secret, ENV['SECRET']
+set :public_folder, File.dirname(__FILE__) + "/../style"
 
 get "#{ENV['SUB_DIR']}/" do
   @job_folders = JobFolderHelper.fetch_job_folders
