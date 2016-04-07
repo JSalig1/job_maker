@@ -11,7 +11,6 @@ class SecureShell
 
   def create_job_folder(folder_name)
     command = generate_copy_to_job_folder + folder_name
-    puts command
     @session.exec!(command)
     @session.close
   end
