@@ -4,12 +4,16 @@
   <div><%= flash[:notice] %></div>
 <% end %>
 
-<div>
-  <a href="<%= ENV['SUB_DIR'] %>/new">Add New Job Folder</a>
+<div class="button">
+  <a  href="<%= ENV['SUB_DIR'] %>/new">Create Folder</a>
 </div>
 
-<% @job_folders.each do |job_folder| %>
-  <ul>
-    <li><%= job_folder %></li>
-  </ul>
-<% end %>
+<div class="content">
+  <div class="job-folders-container">
+    <% @job_folders.each do |job_folder| %>
+      <div class="job-folder">
+        <%= job_folder %>
+      </div>
+    <% end %>
+  </div>
+</div>
