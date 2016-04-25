@@ -1,4 +1,5 @@
 class NameValidator
+
   def self.validate(folder_name)
     if folder_name =~ /(?!.*__.*)[a-zA-Z0-9]+_[a-zA-Z0-9_]+[a-zA-Z0-9]/
       check_for_existing(folder_name)
@@ -10,9 +11,9 @@ class NameValidator
   private
 
   def self.check_for_existing(folder_name)
-    job_folders = JobFolderHelper.fetch_job_folders.map!(&:downcase)
+    job_folders = JobFolderHelper.new.fetch_for_validations
     if job_folders.include?(folder_name.downcase)
-      "a job folder by that name already exists"
+      "A job folder by that name either already exists or is not allowed"
     else
       server_shell = SecureShell.new
       server_shell.create_job_folder(folder_name)
