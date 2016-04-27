@@ -10,8 +10,10 @@ class SecureShell
   end
 
   def create_job_folder(folder_name)
-    command = generate_copy_to_job_folder + folder_name
-    @session.exec!(command)
+    job_folder_command = generate_copy_to_job_folder + folder_name
+    producer_folder_command = generate_copy_to_producer_folder + folder_name
+    @session.exec!(job_folder_command)
+    @session.exec!(producer_folder_command)
     @session.close
   end
 
@@ -19,5 +21,9 @@ class SecureShell
 
   def generate_copy_to_job_folder
     "cp -a #{ENV['JOB_TEMPLATE_PATH']} #{ENV['JOB_TARGET_PATH']}/"
+  end
+
+  def generate_copy_to_producer_folder
+    "cp -a #{ENV['PRODUCER_TEMPLATE_PATH']} #{ENV['PRODUCER_TARGET_PATH']}/"
   end
 end
