@@ -13,7 +13,7 @@ enable :sessions
 set :session_secret, ENV['SECRET']
 
 get "#{ENV['SUB_DIR']}/" do
-  @job_folders = JobFolderHelper.new.fetch_for_presentation
+  @job_folders = JobFolderHelper.new.fetch_for_presentation.sort_by(&:downcase)
   erb :index
 end
 

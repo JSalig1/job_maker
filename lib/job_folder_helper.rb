@@ -1,12 +1,12 @@
 class JobFolderHelper
 
   def initialize
-    @protected = ENV['PROTECTED']
+    @protected = ENV['PROTECTED'].split(",")
   end
 
   def fetch_for_presentation
     job_folders = fetch_job_folders.keep_if(&:directory?)
-    job_folders.map!(&presentify).sort_by(&:downcase)
+    job_folders.map!(&presentify)
     job_folders.delete_if(&protected_directory)
   end
 
