@@ -4,16 +4,31 @@
   <div><%= flash[:notice] %></div>
 <% end %>
 
+<div class="content">
+  <div class="container-border">
+    <h3>Main Job Folders</h3>
+    <div class="job-folders-container">
+      <% @job_folders.each do |job_folder| %>
+        <div class="job-folder">
+          <%= job_folder %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="container-border">
+    <h3>Producer Job Folders</h3>
+    <div class="job-folders-container">
+      <% @producer_folders.each do |producer_folder| %>
+        <div class="job-folder">
+          <%= producer_folder %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="button">
   <a  href="<%= ENV['SUB_DIR'] %>/new">Create Folder</a>
 </div>
 
-<div class="content">
-  <div class="job-folders-container">
-    <% @job_folders.each do |job_folder| %>
-      <div class="job-folder">
-        <%= job_folder %>
-      </div>
-    <% end %>
-  </div>
-</div>
+

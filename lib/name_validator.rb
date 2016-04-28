@@ -11,7 +11,7 @@ class NameValidator
   private
 
   def self.check_for_existing(folder_name)
-    job_folders = JobFolderHelper.new.fetch_for_validations
+    job_folders = JobFolderHelper.new.fetch_all_from_jobs.map!(&:downcase)
     if job_folders.include?(folder_name.downcase)
       "A job folder by that name either already exists or is not allowed"
     else
