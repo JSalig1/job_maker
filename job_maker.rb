@@ -12,8 +12,20 @@ Dotenv.load
 enable :sessions
 set :session_secret, ENV['SECRET']
 
-use Rack::Auth::Basic, "Restricted Area" do |username, password|
-    username == ENV['APPS_USER'] and password == ENV['APPS_PASS']
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and
+    @auth.basic? and
+    @auth.credentials and
+    @auth.credentials == [ ENV['APPS_USER'], ENV['APPS_PASS'] ]
+  end
 end
 
 get "#{ENV['SUB_DIR']}/" do
@@ -24,6 +36,7 @@ get "#{ENV['SUB_DIR']}/" do
 end
 
 get "#{ENV['SUB_DIR']}/new" do
+  protected!
   erb :new
 end
 
