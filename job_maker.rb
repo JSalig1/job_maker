@@ -12,6 +12,10 @@ Dotenv.load
 enable :sessions
 set :session_secret, ENV['SECRET']
 
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+    username == ENV['APPS_USER'] and password == ENV['APPS_PASS']
+end
+
 get "#{ENV['SUB_DIR']}/" do
   job_folder_helper = JobFolderHelper.new
   @job_folders = job_folder_helper.fetch_and_filter_jobs.sort_by(&:downcase)
