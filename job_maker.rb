@@ -28,14 +28,20 @@ helpers do
   end
 end
 
-get "#{ENV['SUB_DIR']}/" do
-  job_folder_helper = JobFolderHelper.new
-  @job_folders = job_folder_helper.fetch_and_filter_jobs.sort_by(&:downcase)
-  @producer_folders = job_folder_helper.fetch_producer_folders.sort_by(&:downcase)
-  erb :index
+get "#{ENV['SUB_DIR']}/:year" do
+  folder_helper = JobFolderHelper.new
+  if folder_helper.valid_year?(params[:year])
+    @year = params[:year]
+    @years = folder_helper.years
+    @job_folders = folder_helper.fetch_and_filter_jobs.sort_by(&:downcase)
+    @producer_folders = folder_helper.fetch_producer_folders_by(@year).sort_by(&:downcase)
+    erb :index
+  else
+    redirect to "/2016"
+  end
 end
 
-get "#{ENV['SUB_DIR']}/new" do
+get "#{ENV['SUB_DIR']}/job_folders/new" do
   protected!
   erb :new
 end

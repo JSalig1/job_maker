@@ -17,6 +17,15 @@
   </div>
   <div class="container-border">
     <h3>Producer Job Folders</h3>
+    <ul class="nav">
+      <% @years.each do |year| %>
+        <% if year == @year %>
+          <li class="active"><%= year %></li>
+        <% else %>
+          <li class="non-active"><a href='<%= ENV['SUB_DIR'] + "/#{year}" %>'><%= year %></a></li>
+        <% end %>
+      <% end %>
+    </ul>
     <div class="job-folders-container">
       <% @producer_folders.each do |producer_folder| %>
         <div class="job-folder">
@@ -28,7 +37,5 @@
 </div>
 
 <div class="button">
-  <a  href="<%= ENV['SUB_DIR'] %>/new">Create Folder</a>
+  <a href="<%= ENV['SUB_DIR'] %>/job_folders/new">Create Folder</a>
 </div>
-
-
