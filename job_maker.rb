@@ -48,5 +48,5 @@ end
 
 post "#{ENV['SUB_DIR']}/job-folders" do
   flash[:notice] = NameValidator.validate request["folder_name"]
-  redirect "#{ENV['SUB_DIR']}/"
+  redirect "#{ENV['SUB_DIR']}/2016"
 end
