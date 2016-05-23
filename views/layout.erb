@@ -2,8 +2,14 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css", href="/style/style.css">
+    <script src="/style/w3data.js"></script>
   </head>
   <body>
+    <h1>JobMaker</h1>
+    <div w3-include-html="/style/header.html"></div>
     <%= yield %>
   </body>
+  <script>
+    w3IncludeHTML();
+  </script>
 </html>
