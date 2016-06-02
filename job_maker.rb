@@ -28,6 +28,10 @@ helpers do
   end
 end
 
+get "#{ENV['SUB_DIR']}/" do
+  redirect to "/2016"
+end
+
 get "#{ENV['SUB_DIR']}/:year" do
   folder_helper = JobFolderHelper.new
   if folder_helper.valid_year?(params[:year])
