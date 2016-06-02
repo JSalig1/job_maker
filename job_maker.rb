@@ -29,7 +29,7 @@ helpers do
 end
 
 get "#{ENV['SUB_DIR']}/" do
-  redirect to "/2016"
+  redirect to "#{ENV['SUB_DIR']}/2016"
 end
 
 get "#{ENV['SUB_DIR']}/:year" do
