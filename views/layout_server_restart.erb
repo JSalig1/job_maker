@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css", href="/style/style.css">
+    <script src="/style/w3data.js"></script>
+  </head>
+  <body>
+    <div class="header-nav" w3-include-html="/style/header.html"></div>
+    <div class="content" id="app-title">
+      <h1>ServerRestart</h1>
+    </div>
+    <%= yield %>
+  </body>
+
+  <div id="background"></div>
+
+  <script>
+    w3IncludeHTML();
+  </script>
+</html>

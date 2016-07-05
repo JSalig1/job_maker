@@ -1,0 +1,17 @@
+<div class="content">
+  <div class="form">
+    <h2>Restart Server</h2>
+    <p>WARNING: All users will be disconnected. Server restart will take several minutes. Please alert Chris or Jeremy before using if possible.</p>
+
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% else %>
+      <form method="POST" action="/server-restart">
+        <div class="button" id="server-restart">
+          <input type="submit" value="Restart!" onclick="return confirm('Are you sure you want to restart the server right now?')" />
+        </div>
+      </form>
+    <% end %>
+
+  </div>
+</div>

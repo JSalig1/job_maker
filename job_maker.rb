@@ -32,6 +32,11 @@ get "#{ENV['SUB_DIR']}/" do
   redirect to "#{ENV['SUB_DIR']}/2016"
 end
 
+get "/server-restart" do
+  protected!
+  erb :server_restart, layout: :layout_server_restart
+end
+
 get "#{ENV['SUB_DIR']}/:year" do
   folder_helper = JobFolderHelper.new
   if folder_helper.valid_year?(params[:year])
@@ -53,4 +58,10 @@ end
 post "#{ENV['SUB_DIR']}/job-folders" do
   flash[:notice] = NameValidator.validate request["folder_name"]
   redirect "#{ENV['SUB_DIR']}/2016"
+end
+
+post "/server-restart" do
+  server_shell = SecureShell.new
+  flash[:notice] = server_shell.restart_the_server
+  redirect "/server-restart"
 end

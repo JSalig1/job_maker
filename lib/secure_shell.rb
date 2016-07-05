@@ -17,6 +17,12 @@ class SecureShell
     @session.close
   end
 
+  def restart_the_server
+    @session.exec("shutdown -r")
+    @session.close
+    "Restart initialized."
+  end
+
   private
 
   def generate_copy_to_job_folder
