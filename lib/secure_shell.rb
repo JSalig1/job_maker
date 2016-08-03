@@ -18,7 +18,7 @@ class SecureShell
   end
 
   def restart_the_server
-    @session.exec("shutdown -r")
+    @session.exec("shutdown -r now")
     @session.close
     "Restart initialized."
   end
