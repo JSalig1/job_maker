@@ -65,3 +65,9 @@ post "/server-restart" do
   flash[:notice] = server_shell.restart_the_server
   redirect "/server-restart"
 end
+
+post "/cifs-restart" do
+  server_shell = SecureShell.new
+  flash[:notice] = server_shell.restart_cifs
+  redirect "/server-restart"
+end

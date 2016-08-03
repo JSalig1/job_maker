@@ -23,6 +23,16 @@ class SecureShell
     "Restart initialized."
   end
 
+  def restart_cifs
+    @session.exec!("service samba_server stop")
+    @session.exec!("service ix-pre-samba restart")
+    @session.exec!("service samba_server start")
+    @session.exec!("service ix-post-samba restart")
+    @session.exec!("service mdnsd restart")
+    @session.close
+    "CIFS restart initialized."
+  end
+
   private
 
   def generate_copy_to_job_folder
