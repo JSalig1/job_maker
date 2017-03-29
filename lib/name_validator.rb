@@ -17,6 +17,8 @@ class NameValidator
     else
       server_shell = SecureShell.new
       server_shell.create_job_folder(folder_name)
+      mailer = Mailer.new
+      mailer.compose(folder_name)
       "Job folder created"
     end
   end
