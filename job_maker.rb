@@ -31,7 +31,7 @@ helpers do
 end
 
 get "#{ENV['SUB_DIR']}/" do
-  redirect to "#{ENV['SUB_DIR']}/2017"
+  redirect to "#{ENV['SUB_DIR']}/2018"
 end
 
 get "/server-restart" do
@@ -48,7 +48,7 @@ get "#{ENV['SUB_DIR']}/:year" do
     @producer_folders = folder_helper.fetch_producer_folders_by(@year).sort_by(&:downcase)
     erb :index
   else
-    redirect to "/2017"
+    redirect to "/2018"
   end
 end
 
@@ -59,7 +59,7 @@ end
 
 post "#{ENV['SUB_DIR']}/job-folders" do
   flash[:notice] = NameValidator.validate request["folder_name"]
-  redirect "#{ENV['SUB_DIR']}/2017"
+  redirect "#{ENV['SUB_DIR']}/2018"
 end
 
 post "/server-restart" do
