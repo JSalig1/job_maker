@@ -1,5 +1,5 @@
 class SecureShell
-  def initialize
+  def initialize(host)
 
     Net::SSH::Transport::Algorithms::ALGORITHMS[:encryption] = %w(
       aes128-cbc 3des-cbc blowfish-cbc cast128-cbc
@@ -8,7 +8,7 @@ class SecureShell
     )
 
     @session = Net::SSH.start(
-      ENV['SERVER_HOST'],
+      host,
       ENV['SERVER_USER'],
       password: ENV['SERVER_PASSWORD']
     )
@@ -20,6 +20,12 @@ class SecureShell
     producer_folder_command = generate_copy_to_producer_folder + folder_name
     @session.exec!(job_folder_command)
     @session.exec!(producer_folder_command)
+    @session.close
+  end
+
+  def create_codex_folder(folder_name)
+    codex_folder_command = generate_copy_to_codex_folder + folder_name
+    @session.exec!(codex_folder_command)
     @session.close
   end
 
@@ -40,6 +46,10 @@ class SecureShell
   end
 
   private
+
+  def generate_copy_to_codex_folder
+    "cp -a #{ENV['CODEX_TEMPLATE_PATH']} #{ENV['CODEX_TARGET_PATH']}/"
+  end
 
   def generate_copy_to_job_folder
     "cp -a #{ENV['JOB_TEMPLATE_PATH']} #{ENV['JOB_TARGET_PATH']}/"

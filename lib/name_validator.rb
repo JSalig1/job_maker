@@ -15,8 +15,10 @@ class NameValidator
     if job_folders.include?(folder_name.downcase)
       "A job folder by that name either already exists or is not allowed"
     else
-      server_shell = SecureShell.new
+      server_shell = SecureShell.new( ENV['SERVER_HOST'] )
       server_shell.create_job_folder(folder_name)
+      server_shell = SecureShell.new( ENV['CODEX_HOST'] )
+      server_shell.create_codex_folder(folder_name)
       mailer = Mailer.new
       mailer.compose(folder_name)
       "Job folder created"
