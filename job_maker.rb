@@ -58,7 +58,7 @@ get "#{ENV['SUB_DIR']}/job_folders/new" do
 end
 
 post "#{ENV['SUB_DIR']}/job-folders" do
-  flash[:notice] = NameValidator.validate request["folder_name"]
+  flash[:notice] = NameValidator.validate request
   redirect "#{ENV['SUB_DIR']}/2019"
 end
 

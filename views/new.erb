@@ -1,20 +1,163 @@
+<head>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
 <div class="content">
   <div class="form">
     <h2>Create New Job Folder</h2>
     <form method="POST" action="<%= ENV['SUB_DIR'] %>/job-folders">
-      <label>Folder name:</label>
-      <input
-        class="field"
-        type="text"
-        name="folder_name"
-        title="letters and numbers only with at least one undercore (no spaces)"
-        maxlength="96"
-        pattern="(?!.*__.*)[a-zA-Z0-9]+_[a-zA-Z0-9_]+[a-zA-Z0-9]"
-        required
-        autocomplete="off"/>
+      <div class="long-field">
+        <label>Folder Name:</label>
+        <input
+          class="field"
+          type="text"
+          name="folder_name"
+          placeholder="1234N_JobName"
+          title="letters and numbers only with at least one undercore (no spaces)"
+          maxlength="96"
+          pattern="(?!.*__.*)[a-zA-Z0-9]+_[a-zA-Z0-9_]+[a-zA-Z0-9]"
+          required
+          autocomplete="off"/>
+      </div>
+      <div class="long-field">
+        <label>Agency Name:</label>
+        <input
+          class="field"
+          type="text"
+          name="Agency Name"
+          title="Agency Name"
+          required
+          autocomplete="off"/>
+      </div>
+      <div class="long-field">
+        <label>Agency Producer:</label>
+        <input
+          class="field"
+          type="text"
+          name="Agency Producer"
+          placeholder="name"
+          title="Agency Producer"
+          required
+          autocomplete="off"/>
+        <input
+          class="field"
+          type="email"
+          name="Agencey Producer E-Mail"
+          placeholder="e-mail"
+          title="1stAve EP"
+          required
+          autocomplete="off"/>
+      </div>
+      <div class="long-field">
+        <label>1stAve EP:</label>
+        <input
+          class="field"
+          type="text"
+          name="1stAve EP"
+          placeholder="name"
+          title="1stAve Director"
+          required
+          autocomplete="off"/>
+        <input
+          class="field"
+          type="email"
+          name="1stAve EP E-Mail"
+          placeholder="e-mail"
+          title="1stAve EP"
+          required
+          autocomplete="off"/>
+      </div>
+      <div class="long-field">
+        <label>1stAve Director:</label>
+        <input
+          class="field"
+          type="text"
+          name="1stAve Director"
+          placeholder="name"
+          title="1stAve Director"
+          required
+          autocomplete="off"/>
+      </div>
+      <div class="long-field">
+        <label>Post Facility:</label>
+        <input
+          class="field"
+          type="text"
+          name="Post Facility"
+          required
+          autocomplete="off"/>
+      </div>
+      <div class="long-field">
+        <label>Editorial Facility:</label>
+        <input
+          class="field"
+          type="text"
+          name="Editorial Facility"
+          required
+          autocomplete="off"/>
+      </div>
+
+
+      <!-- This field is duplicatable via the script below -->
+
+      <label>Shoot Date(s)</label>
+      <div id="field">
+        <input
+          class="field"
+          id="field1"
+          name="shoot_date1"
+          type="date"
+          data-items="8"/>
+        <input
+          id="b1"
+          class="btn add-more"
+          type="button"
+          value="+"/>
+      </div>
+
+      <!-- The above field is duplicatable via the script below -->
+
+      <div>
+        <label>Delivery Date:</label>
+        <input
+          class="field"
+          type="date"
+          name="Ship Date"
+          required
+          autocomplete="off"/>
+      </div>
       <div class="button">
         <input type="submit" value="Create Folder" />
       </div>
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+    var next = 1;
+    $(".add-more").click(function(e){
+      e.preventDefault();
+      var addto = "#field" + next;
+      var addRemove = "#field" + (next);
+      next = next + 1;
+      var newIn = '<input autocomplete="off" class="field" id="field' + next + '" name="shoot_date' + next + '" type="date">';
+      var newInput = $(newIn);
+      var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >x</button></div><div id="field">';
+      var removeButton = $(removeBtn);
+      $(addto).after(newInput);
+      $(addRemove).after(removeButton);
+      $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+      $("#count").val(next);  
+
+      $('.remove-me').click(function(e){
+        e.preventDefault();
+        var fieldNum = this.id.charAt(this.id.length-1);
+        var fieldID = "#field" + fieldNum;
+        $(this).remove();
+        $(fieldID).remove();
+      });
+    });
+  });
+</script>
+
